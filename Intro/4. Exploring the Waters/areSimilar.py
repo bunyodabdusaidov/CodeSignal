@@ -1,44 +1,43 @@
+import time
+import random
+
+
 def solution(a, b):
-    l = len(b) // 2
-    m = len(b) // 2
-    if a == b:
-        return True
-    for i in range(len(a)//2):
-        print(f"i = {i}")
-        print(f"l = {l}")
-        for j in range(len(a)//2 + 1):
-            print(f"j = {j}")
-            tmp = a[i]
-            a[i] = a[j]
-            a[j] = tmp
-            print(f"1.{a}, \n  {b}")
-            if a == b:
-                return True
-            tmp = a[i]
-            a[i] = a[j]
-            a[j] = tmp
-            print(f"2.{a}, \n  {b}")               
-            tmp = b[l]
-            b[l] = b[m]
-            b[m] = tmp
+    for i in range(len(a)):
+        if a[i] != b[i]:
+            n = i
+            while n != len(a):
+                #print(f"n = {n}")
+                #print(f"i+1 = {i+1}")
+                #print(f"len(a) - 1 = {len(a) - 1}")
+                for j in range(i, len(a) - 1):
+                    tmp = a[n]
+                    a[n] = a[j]
+                    a[j] = tmp
+                    #print(f"a[n] = {a[n]}")
+                    #print(f"a[j] = {a[j]}")
+                    #print(a)
+                    if a == b:
+                        return True
+                    else:
+                        tmp = a[n]
+                        a[n] = a[j]
+                        a[j] = tmp
+                n += 1
+            return False
+    return True
 
-            print(f"3.{a}, \n  {b}")
+a = []
+b = []
+for i in range(3, 10**5+1):
+    a.append(random.randint(1,1000))
+    b.append(random.randint(1,1000))
 
-            if a == b:
-                return True
-
-            tmp = b[l]
-            b[l] = b[m]
-            b[m] = tmp
-            print(f"4.{a}, \n  {b}")
-            print(f"m = {m}")
-            
-            m += 1
-        l += 1
-
-    return False
-
-a = [2, 3, 1]
-b = [1, 3, 2]
-
+#print(a)
+#print(b)
+tic = time.perf_counter()
 print(solution(a, b))
+toc = time.perf_counter()
+print(f"Function executed = {toc - tic:0.4f} seconds")
+
+
