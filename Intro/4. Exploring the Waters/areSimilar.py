@@ -1,43 +1,26 @@
-import time
-import random
-
-
 def solution(a, b):
+    list_a = []  # Store numbers that are different from list b
+    list_b = []  # Store numbers that are different from list a
+
     for i in range(len(a)):
+        # If number in a is not similar with number in b
         if a[i] != b[i]:
-            n = i
-            while n != len(a):
-                #print(f"n = {n}")
-                #print(f"i+1 = {i+1}")
-                #print(f"len(a) - 1 = {len(a) - 1}")
-                for j in range(i, len(a) - 1):
-                    tmp = a[n]
-                    a[n] = a[j]
-                    a[j] = tmp
-                    #print(f"a[n] = {a[n]}")
-                    #print(f"a[j] = {a[j]}")
-                    #print(a)
-                    if a == b:
-                        return True
-                    else:
-                        tmp = a[n]
-                        a[n] = a[j]
-                        a[j] = tmp
-                n += 1
-            return False
-    return True
+            list_a.append(a[i])  # Add number in position i to list_a
+            list_b.append(b[i])  # Add number in position i to list_b
+    
+    # If length of list_a is 0, it means there are no different numbers
+    if len(list_a) == 0:
+        return True
+    # If length of list_a is 2, list_a and list_b should be compared
+    elif len(list_a) == 2:
+        # Converting list_a and list_b to sets will allow to compare them regardless of their sequence
+        return set(list_a) == set(list_b)
+    else:
+        return False
 
-a = []
-b = []
-for i in range(3, 10**5+1):
-    a.append(random.randint(1,1000))
-    b.append(random.randint(1,1000))
+#a = [832, 998, 148, 570, 533, 561, 894, 147, 455, 279]
+#b = [832, 998, 148, 570, 533, 561, 455, 147, 894, 279]
+#print(solution(a,b))
 
-#print(a)
-#print(b)
-tic = time.perf_counter()
-print(solution(a, b))
-toc = time.perf_counter()
-print(f"Function executed = {toc - tic:0.4f} seconds")
 
 
